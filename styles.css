@@ -285,6 +285,47 @@ h1 span,
   color: var(--orange);
 }
 
+.hero-typing {
+  min-height: 1.55em;
+  margin: -5px 0 12px;
+  color: var(--orange-deep);
+  font-family: Poppins, sans-serif;
+  font-size: clamp(16px, 1.7vw, 19px);
+  font-weight: 600;
+  letter-spacing: -.45px;
+  line-height: 1.55;
+}
+
+.typing-visual {
+  white-space: nowrap;
+}
+
+.typing-cursor {
+  width: 2px;
+  height: 1.05em;
+  display: inline-block;
+  margin-left: 4px;
+  border-radius: 2px;
+  background: currentColor;
+  box-shadow: 0 0 8px rgba(244, 119, 25, .42);
+  vertical-align: -.14em;
+  animation: typing-cursor-blink .9s steps(2, start) infinite;
+}
+
+@keyframes typing-cursor-blink {
+  to { opacity: .18; }
+}
+
+.visually-hidden {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
 .hero-description {
   max-width: 510px;
   margin-bottom: 26px;
@@ -1548,5 +1589,9 @@ h1 span,
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .typing-cursor {
+    animation: none;
   }
 }

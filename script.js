@@ -5,6 +5,59 @@ if (currentYear) {
   currentYear.textContent = String(new Date().getFullYear());
 }
 
+const typingText = document.querySelector("[data-typing-text]");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+if (typingText && !reducedMotion.matches) {
+  const phrases = [
+    "Find your direction.",
+    "Build momentum that lasts.",
+    "Grow alongside creators.",
+    "Turn ideas into impact.",
+  ];
+  let phraseIndex = 0;
+  let characterIndex = phrases[0].length;
+  let deleting = true;
+  let typingTimer;
+
+  const scheduleTyping = (delay) => {
+    window.clearTimeout(typingTimer);
+    if (!document.hidden) typingTimer = window.setTimeout(typeNextCharacter, delay);
+  };
+
+  function typeNextCharacter() {
+    const phrase = phrases[phraseIndex];
+
+    if (deleting) {
+      characterIndex -= 1;
+      typingText.textContent = phrase.slice(0, characterIndex);
+      if (characterIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        scheduleTyping(300);
+        return;
+      }
+      scheduleTyping(36);
+      return;
+    }
+
+    characterIndex += 1;
+    typingText.textContent = phrase.slice(0, characterIndex);
+    if (characterIndex === phrase.length) {
+      deleting = true;
+      scheduleTyping(1550);
+      return;
+    }
+    scheduleTyping(76);
+  }
+
+  scheduleTyping(1800);
+  document.addEventListener("visibilitychange", () => {
+    window.clearTimeout(typingTimer);
+    if (!document.hidden) scheduleTyping(650);
+  });
+}
+
 // Add profile URLs here when the CreatorGyde social accounts are ready.
 const socialUrls = {
   instagram: "https://www.instagram.com/creatorgyde/?utm_source=ig_web_button_share_sheet",
